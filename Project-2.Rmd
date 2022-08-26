@@ -1,0 +1,88 @@
+---
+title: "Project 2 Stat 488"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(EFAutilities)
+library(psych)
+library(haven)
+```
+
+```{r}
+dance1 = read_sav("C:/Users/grfri/Google Drive/Spring 2022/Multivariate/johnson_wichern_data/DanceMot_data_PlosOne_141212.sav")
+dance = dance1[,22:72]#22 is the first of the motiv
+
+
+```
+
+```{r}
+#Factor Analysis original replication process
+efa6=fa(dance, nfactors= 6,  rotate = "geominQ",  fm='ml')
+efa7= fa(dance, nfactors= 7,  rotate = "geominQ",  fm='ml')
+efa8=fa(dance, nfactors= 8,  rotate = "geominQ",  fm='ml')
+efa9=fa(dance, nfactors= 9,  rotate = "geominQ",  fm='ml')
+efa10=fa(dance, nfactors= 10,  rotate = "geominQ",  fm='ml')
+efa6$RMSEA
+efa7$RMSEA
+efa8$RMSEA
+efa9$RMSEA
+efa10$RMSEA
+```
+
+```{r}
+#Factor Analysis with subsetted data
+removed = c(1,2,4,8,20,23,24,26,28,31,32,34,35,36,37,38,39,40,42,43,49,50)
+dance_removed = dance[,-removed]
+efa_removed6=fa(dance_removed, nfactors= 6,  rotate = "geominQ",  fm='ml')
+efa_removed7=fa(dance_removed, nfactors= 7,  rotate = "geominQ",  fm='ml')
+efa_removed8=fa(dance_removed, nfactors= 8,  rotate = "geominQ",  fm='ml')
+efa_removed9=fa(dance_removed, nfactors= 9,  rotate = "geominQ",  fm='ml')
+efa_removed10=fa(dance_removed, nfactors= 10,  rotate = "geominQ",  fm='ml')
+efa_removed6$RMSEA
+efa_removed7$RMSEA
+efa_removed8$RMSEA
+efa_removed9$RMSEA
+efa_removed10$RMSEA
+```
+```{r}
+#rmsea = c(efa6$RMSEA["RMSEA"],efa7$RMSEA["RMSEA"],efa8$RMSEA["RMSEA"],efa9$RMSEA["RMSEA"],efa10$RMSEA["RMSEA"])
+#barplot(rmsea)
+#efa10$RMSEA["RMSEA"]
+ 
+```
+```{r}
+
+#efa =fa(dance, nfactors= 9,  rotate = "geominQ",  fm='ml')
+
+#loadings = cbind(
+             efa$loadings[,"ML2"],
+             efa$loadings[,"ML3"],
+             efa$loadings[,"ML6"],
+             efa$loadings[,"ML7"],
+              efa$loadings[,"ML4"],
+             efa$loadings[,"ML8"],
+             efa$loadings[,"ML1"],
+             efa$loadings[,"ML5"],
+             efa$loadings[,"ML9"])
+#loadings
+```
+
+
+```{r}
+library(nFactors)
+#ev <- eigen(cor(dance)) # get eigenvalues
+#ap <- parallel(subject=nrow(dance),var=ncol(dance),
+  #rep=100,cent=.05)
+#nS <- nScree(x=ev$values, aparallel=ap$eigen$qevpea)
+#plotnScree(nS)
+```
+
+```{r}
+fa.diagram(efa9)
+```
+
+```{r}
+fa.diagram(efa_removed8)
+```
