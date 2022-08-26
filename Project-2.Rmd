@@ -1,5 +1,5 @@
 ---
-title: "Project 2 Stat 488"
+title: "Dance Motivation Factor Analysis Replication Project"
 output: pdf_document
 ---
 
